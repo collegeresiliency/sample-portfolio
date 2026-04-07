@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample Portfolio — College Resiliency</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#377574;--navy:#11314b;--gold:#dbaa34;--cream:#faf7f2;--dark-gray:#333;--mid-gray:#666;--lb:#e0ddd8;--white:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+input[type="checkbox"],input[type="radio"]{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--dark-gray);line-height:1.65;-webkit-font-smoothing:antialiased}
+h2{font-size:1.25rem;font-weight:600;color:var(--navy);margin:2rem 0 .8rem}
+h3{font-size:1.05rem;font-weight:600;color:var(--teal);margin:1.5rem 0 .6rem}
+p{margin-bottom:1rem;font-size:.95rem}
+.co{background:var(--white);border-left:4px solid var(--teal);padding:1.2rem 1.4rem;margin:1.5rem 0;border-radius:0 6px 6px 0;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.co.gold{border-left-color:var(--gold)}.co.navy{border-left-color:var(--navy)}
+.co h3{margin-top:0;color:var(--navy)}.co p:last-child{margin-bottom:0}
+.sn{background:var(--navy);color:rgba(255,255,255,.85);padding:.8rem 1.2rem;border-radius:6px;margin:1rem 0 1.5rem;font-size:.85rem;line-height:1.5}
+.sn strong{color:var(--gold)}
+.ts{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(175deg,var(--navy) 0%,var(--navy) 55%,var(--teal) 100%);color:var(--white);position:relative}
+.ts::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--gold)}
+.bn{font-size:.85rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem}
+.sn-name{font-size:clamp(2rem,6vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:.5rem}
+.ps{font-size:1.15rem;opacity:.8;margin-bottom:.4rem}
+.pm{font-size:.85rem;opacity:.55;margin-bottom:1rem}
+.sb{display:inline-block;padding:.4rem 1.2rem;background:var(--gold);color:var(--navy);font-weight:700;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;border-radius:20px;margin-bottom:2.5rem}
+.eb{display:inline-block;padding:.9rem 2.5rem;background:var(--gold);color:var(--navy);font-family:'Barlow',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.05em;border-radius:4px;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:rgba(219,170,52,.3)}
+.bf{position:absolute;bottom:1.5rem;font-size:.75rem;opacity:.4}
+#enter-toggle:not(:checked)~.pw{display:none}
+#enter-toggle:checked~.ts{display:none}
+#enter-toggle:checked~.pw{display:block}
+.pw{max-width:900px;margin:0 auto;padding:0 1.25rem 4rem}
+.tb{position:sticky;top:0;z-index:100;background:var(--navy);margin:0 -1.25rem;padding:0 1.25rem}
+.nt{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nt::-webkit-scrollbar{display:none}
+.nl{flex-shrink:0;padding:.9rem 1rem;font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:500;color:rgba(255,255,255,.5);cursor:pointer;white-space:nowrap;letter-spacing:.02em;border-bottom:3px solid transparent;-webkit-tap-highlight-color:rgba(219,170,52,.3)}
+.sec{display:none;padding-top:2rem}
+#tab-brain:checked~.pw .nl[for="tab-brain"],#tab-profile:checked~.pw .nl[for="tab-profile"],#tab-careers:checked~.pw .nl[for="tab-careers"],#tab-majors:checked~.pw .nl[for="tab-majors"],#tab-colleges:checked~.pw .nl[for="tab-colleges"],#tab-reviews:checked~.pw .nl[for="tab-reviews"]{color:var(--white);font-weight:600;border-bottom-color:var(--gold)}
+#tab-brain:checked~.pw #sec-brain{display:block}
+#tab-profile:checked~.pw #sec-profile{display:block}
+#tab-careers:checked~.pw #sec-careers{display:block}
+#tab-majors:checked~.pw #sec-majors{display:block}
+#tab-colleges:checked~.pw #sec-colleges{display:block}
+#tab-reviews:checked~.pw #sec-reviews{display:block}
+.sh{margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:2px solid var(--teal)}
+.sl{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.4rem}
+.st{font-size:1.7rem;font-weight:700;color:var(--navy);line-height:1.2}
+.si{margin-top:.8rem;font-size:.95rem;color:var(--mid-gray)}
+.card{background:var(--white);border-radius:8px;margin:1rem 0;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;border:1px solid var(--lb)}
+.cl{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;cursor:pointer;-webkit-tap-highlight-color:rgba(55,117,116,.15)}
+.cl:active{background:rgba(55,117,116,.08)}
+.cleft{flex:1}
+.cnum{font-size:.7rem;font-weight:600;letter-spacing:.15em;color:var(--teal);text-transform:uppercase}
+.ctitle{font-size:1.1rem;font-weight:600;color:var(--navy);margin-top:.15rem}
+.ctag{font-size:.85rem;color:var(--mid-gray);font-style:italic;margin-top:.15rem}
+.ci{width:28px;height:28px;border-radius:50%;background:rgba(55,117,116,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:1rem;color:var(--teal);font-size:1.2rem;font-weight:600;transition:transform .3s,background .2s}
+.cb{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.cbi{padding:0 1.4rem 1.4rem}
+.cbi h3:first-child{margin-top:.5rem}
+input.ct:checked+.card .cb{max-height:8000px}
+input.ct:checked+.card .ci{transform:rotate(45deg);background:var(--teal);color:var(--white)}
+.tue{background:linear-gradient(135deg,#f7f5f0,#f0ede6);border-radius:6px;padding:1.3rem 1.4rem;margin:1.2rem 0;border:1px solid var(--lb)}
+.tue-l{display:block;font-size:.65rem;font-weight:700;letter-spacing:.2em;color:var(--gold);margin-bottom:.8rem}
+.tue p{font-size:.92rem;line-height:1.7;color:#444}
+.sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1.5rem 0}
+.sc{background:var(--white);border:1px solid var(--lb);border-radius:6px;padding:1rem;text-align:center}
+.scl{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:.3rem}
+.scv{font-size:1.3rem;font-weight:700;color:var(--navy)}
+.tl{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .8rem;border-radius:3px;margin:2rem 0 .8rem}
+.t1{background:var(--navy);color:var(--white)}.t2{background:var(--teal);color:var(--white)}.t3{background:var(--gold);color:var(--navy)}
+.ctbl{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:.88rem}
+.ctbl th{background:var(--navy);color:var(--white);font-weight:600;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;text-align:left;padding:.7rem .8rem}
+.ctbl td{padding:.65rem .8rem;border-bottom:1px solid var(--lb);vertical-align:top}
+.sname{font-weight:600;color:var(--navy)}
+.star{color:var(--gold)}
+.cmpt{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.85rem}
+.cmpt th{background:var(--navy);color:var(--white);font-weight:600;font-size:.72rem;text-align:left;padding:.6rem .7rem}
+.cmpt td{padding:.55rem .7rem;border-bottom:1px solid var(--lb);vertical-align:top}
+.cmpt tr:nth-child(even) td{background:rgba(250,247,242,.6)}
+.dir{color:var(--teal);font-weight:600}.rch{color:var(--gold);font-weight:500}.clo{color:#c0392b;font-weight:500}
+.rec{background:var(--navy);color:var(--white);border-radius:8px;padding:1.8rem 2rem;margin:2rem 0}
+.rec h2{color:var(--gold);margin-top:0}.rec p{color:rgba(255,255,255,.9)}
+.dc{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--lb);margin:.8rem 1rem 1rem;border-radius:6px;overflow:hidden;border:1px solid var(--lb)}
+.dx{background:var(--cream);padding:.7rem .9rem}
+.dx.full{grid-column:1/-1}
+.dl{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:.2rem}
+.dv{font-size:.88rem;font-weight:500;color:var(--navy);line-height:1.4}
+.stars{color:var(--gold)}.warn{color:#c0392b;font-weight:600}
+.sc2{background:var(--white);border-radius:10px;margin:1.2rem 0;box-shadow:0 2px 8px rgba(0,0,0,.07);overflow:hidden;border:1px solid var(--lb)}
+.shl{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.4rem;cursor:pointer;-webkit-tap-highlight-color:rgba(55,117,116,.15)}
+.shl:active{background:rgba(55,117,116,.05)}
+.stb{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.1em;padding:.2rem .6rem;border-radius:3px;margin-bottom:.3rem}
+.snb{font-size:1.2rem;font-weight:700;color:var(--navy)}
+.sms{font-size:.82rem;color:var(--mid-gray);margin-top:.15rem}
+.sb2{max-height:0;overflow:hidden;transition:max-height .5s ease}
+input.st2:checked+.sc2 .sb2{max-height:20000px}
+input.st2:checked+.sc2 .ci{transform:rotate(45deg);background:var(--teal);color:var(--white)}
+.is{border-top:1px solid var(--lb)}
+.il{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.4rem;cursor:pointer;-webkit-tap-highlight-color:rgba(55,117,116,.15)}
+.il:active{background:rgba(55,117,116,.05)}
+.inum{font-size:.6rem;font-weight:600;letter-spacing:.1em;color:var(--teal);text-transform:uppercase;margin-right:.5rem;min-width:1.5rem}
+.iname{font-size:.92rem;font-weight:600;color:var(--navy);flex:1}
+.ii{width:22px;height:22px;border-radius:50%;background:rgba(55,117,116,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:.8rem;color:var(--teal);font-size:.9rem;font-weight:600;transition:transform .3s,background .2s}
+.ib{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.ibc{padding:0 1.4rem 1.2rem}
+.ibc p:last-child{margin-bottom:0}
+input.it:checked+.is .ib{max-height:5000px}
+input.it:checked+.is .ii{transform:rotate(45deg);background:var(--teal);color:var(--white)}
+.bd{font-size:.93rem;line-height:1.75;color:var(--dark-gray)}
+.bd p{margin-bottom:1.2rem}
+.pf{text-align:center;padding:3rem 1rem 2rem;border-top:2px solid var(--lb);margin-top:3rem}
+.pf p{font-size:.8rem;color:var(--mid-gray)}
+@media(max-width:600px){.nl{padding:.85rem .7rem;font-size:.68rem}.st{font-size:1.4rem}.ctitle,.snb{font-size:1rem}.sr{grid-template-columns:1fr 1fr}.ctbl{font-size:.78rem}.ctbl th,.ctbl td{padding:.5rem}.rec{padding:1.3rem 1.2rem}.dc{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="enter-toggle">
+<input type="radio" name="tab" id="tab-brain" checked>
+<input type="radio" name="tab" id="tab-profile">
+<input type="radio" name="tab" id="tab-careers">
+<input type="radio" name="tab" id="tab-majors">
+<input type="radio" name="tab" id="tab-colleges">
+<input type="radio" name="tab" id="tab-reviews">
+
+<div class="ts">
+  <div class="bn">College Resiliency · The Parent Playbook</div>
+  <div class="sn-name">ETHAN'S COLLEGE<br>PLANNING PORTFOLIO</div>
+  <div class="ps">Class of 2027</div>
+  <div class="pm">Prepared April 2026</div>
+  <div class="sb">Sample Portfolio</div>
+  <label for="enter-toggle" class="eb">Open Portfolio</label>
+  <div class="bf">collegeresiliency.com · @CollegeResiliency</div>
+</div>
+
+<div class="pw">
+<div class="tb"><div class="nt">
+  <label class="nl" for="tab-brain">Brain Dump</label>
+  <label class="nl" for="tab-profile">Planning Parameters</label>
+  <label class="nl" for="tab-careers">Career Paths</label>
+  <label class="nl" for="tab-majors">Major Decision</label>
+  <label class="nl" for="tab-colleges">College List</label>
+  <label class="nl" for="tab-reviews">School Reviews</label>
+</div></div>
+
+<!-- ═══ BRAIN DUMP ═══ -->
+<div class="sec" id="sec-brain">
+  <div class="sh">
+    <div class="sl">The Starting Point</div>
+    <div class="st">The Brain Dump</div>
+    <div class="si">This is what the parent typed into Step 1. Unedited. Unstructured. Just a parent talking honestly about her kid. Everything that follows — the career paths, the major decision, the college list, the school reviews — was built from this.</div>
+  </div>
+
+  <div class="sn"><strong>Note:</strong> This tab is not normally included in the portfolio. It is shown here so you can see the input that produced the output. The AI College Planner starts with a brain dump like this — then transforms it into everything you see in the other tabs.</div>
+
+  <div class="bd">
+    <p>His name is Ethan. He's a junior at a mid-size public high school in a large city. Class of 2027.</p>
+    <p>Let me just tell you about him honestly, because I think that's more useful than trying to make him sound impressive.</p>
+    <p>He's a straight-A kid. 4.0 unweighted, and that's not because we've been managing his transcript — it's because he's a perfectionist who is genuinely uncomfortable handing in anything that isn't his best work. He's on the honors and AP track. This year he's taking AP Physics 1, AP Computer Science A, AP US History, Pre-Calc Honors, AP English Language, and a Leadership elective. He got an A+ in Pre-Calc. Physics is an A. English is his hardest subject — he still gets A's, but it doesn't come naturally the way math and science do. He's planning AP Physics C, AP Chemistry, Calc BC, AP Lit, and AP Gov for senior year. His SAT isn't finalized yet but we're targeting 1500+.</p>
+    <p>The thing about Ethan is that he loves physics and math for a very specific reason — they have correct answers. He finds genuine satisfaction in the elegance of a proof that comes together cleanly, or a physics problem where the math just works. He's told me that between building things and thinking about how things work at a theoretical level, theory is more interesting to him. That matters. He is not a tinkerer. He has never done robotics. He has never built anything. He's not spending weekends in the garage with a soldering iron. I know a lot of kids in his school who are like that, and he is not one of them. He's the kid who wants to understand why something works, not the kid who wants to make it work.</p>
+    <p>When I asked him where he'd want to work someday, he said "a tech company" and "I wouldn't rule out a lab." That's it. That's the full extent of his career thinking at 17, and honestly I think that's fine. He's not the kind of kid who has a five-year plan. He doesn't even have a five-month plan. But the direction is there if you listen carefully — he's drawn to structured, intellectually rigorous work where he can go deep on hard problems with smart people.</p>
+    <p>He is a total introvert. He is social — but in a quiet, low-key way. He plays video games with his friends in his spare time. That's his thing. He's not out networking or joining clubs for the sake of joining clubs. He builds friendships through repeated shared experience in small, comfortable groups.</p>
+    <p>His main extracurricular is volunteering at a local food bank. He started going sporadically last year and it's grown — he's now doing 3 to 6 hours a week and is planning to pick up leadership shifts over the summer. He also does some soccer refereeing, though that's been sporadic at best.</p>
+    <p>Here's what I want you to understand about him. He needs structure. He needs to know what's expected, by when, and how it's going to be graded. If you give him a clear rubric and a deadline, he will deliver perfect work every time. If you give him an open-ended assignment with vague expectations, he will spiral. He replays decisions in his head — did he do it right, could he have done it better, what if he missed something. It's manageable and he's doing well, but it means the college environment matters enormously. He needs a place where the expectations are clear from day one, where professors know his name, where the advising is structured and proactive, and where the mental health support is genuinely excellent — not just a link on a website.</p>
+    <p>He has said — and this is his words, not mine — that he wants a large, beautiful campus but not a lot of students. He does NOT mean large enrollment. He wants small classes where he can bond with his peers and professors.</p>
+    <p>Collaborative, not competitive. That's non-negotiable. He would not do well in a weed-out culture.</p>
+    <p>He has no interest in sales, management, or anything where the answer is subjective and the politics matter more than the work.</p>
+    <p>A few practical things. We are willing to pay for college but cost matters — we'd like to preserve some budget for graduate school if he ends up wanting that. Merit aid availability is important to us.</p>
+    <p>Geography — he'd probably prefer to stay on the West Coast or Mountain West, but I wouldn't rule out the Northeast if the school is right. No Texas. The heat is a dealbreaker, apparently.</p>
+    <p>One last thing. I know this profile doesn't scream "future scientist." He doesn't have a science fair trophy or a research publication or an internship at a lab. He's a normal kid who works really hard, loves physics and math, plays video games, volunteers at a food bank, and is trying to figure out what comes next. I'd rather work with what's actually true than try to build a narrative that isn't him.</p>
+  </div>
+
+  <div class="co gold">
+    <h3>What made this brain dump work</h3>
+    <p>She wrote about who he actually is — not who she wished he was. She named what he avoids, not just what he's good at. She was specific about what kind of environment he needs and why. She didn't try to make him sound like a science prodigy. She said "I know this profile doesn't scream future scientist" and that honesty is exactly what made the output useful.</p>
+  </div>
+</div>
+
+<!-- ═══ PLANNING PARAMETERS ═══ -->
+<div class="sec" id="sec-profile">
+  <div class="sh">
+    <div class="sl">Portfolio Guide</div>
+    <div class="st">Planning Parameters</div>
+    <div class="si">These are the inputs and filters that shaped every recommendation in this portfolio — the career paths, the major decision, the college list, and the school reviews. If you're wondering why a particular school or career is (or isn't) on the list, the answer is here.</div>
+  </div>
+
+  <style>
+  .param-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+  .param-card{background:var(--white);border:1px solid var(--lb);border-radius:8px;padding:1.1rem 1.3rem}
+  .param-card.full{grid-column:1/-1}
+  .param-label{font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:.4rem}
+  .param-value{font-size:.95rem;color:var(--navy);font-weight:500;line-height:1.5}
+  .param-value span.dim{color:var(--mid-gray);font-weight:400}
+  .filter-list{margin:1.5rem 0}
+  .filter-item{display:flex;align-items:flex-start;padding:.6rem 0;border-bottom:1px solid var(--lb)}
+  .filter-icon{font-size:.85rem;margin-right:.8rem;flex-shrink:0;margin-top:.1rem}
+  .filter-text{font-size:.93rem;color:var(--dark-gray)}
+  .filter-text strong{color:var(--navy)}
+  @media(max-width:600px){.param-grid{grid-template-columns:1fr}}
+  </style>
+
+  <h2>Student Profile Summary</h2>
+  <div class="param-grid">
+    <div class="param-card">
+      <div class="param-label">Academic Profile</div>
+      <div class="param-value">4.0 UW GPA · SAT 1500+ target<br><span class="dim">AP Physics C · Calc BC · AP Chem (senior year)</span></div>
+    </div>
+    <div class="param-card">
+      <div class="param-label">Academic Anchor</div>
+      <div class="param-value">Physics B.S.<br><span class="dim">Theory-first · First-principles reasoning</span></div>
+    </div>
+    <div class="param-card">
+      <div class="param-label">Intellectual Profile</div>
+      <div class="param-value">Theorist, not a builder<br><span class="dim">Loves correct answers · Elegant proofs · Structured problems</span></div>
+    </div>
+    <div class="param-card">
+      <div class="param-label">Working Style</div>
+      <div class="param-value">Introvert · Structure-dependent<br><span class="dim">Clear rubrics · Defined expectations · Proactive advising</span></div>
+    </div>
+    <div class="param-card">
+      <div class="param-label">Extracurriculars</div>
+      <div class="param-value">Food bank volunteer (3–6 hrs/wk)<br><span class="dim">Soccer refereeing · Leadership class · No STEM ECs</span></div>
+    </div>
+    <div class="param-card">
+      <div class="param-label">Geography Preference</div>
+      <div class="param-value">West Coast · Mountain West · Open to NE<br><span class="dim">No Texas (heat dealbreaker)</span></div>
+    </div>
+  </div>
+
+  <h2>What The List Was Built For</h2>
+  <p>Every school on this list was selected and tiered based on these specific requirements — drawn directly from the brain dump and confirmed during the planning process.</p>
+
+  <div class="filter-list">
+    <div class="filter-item"><span class="filter-icon">✓</span><div class="filter-text"><strong>Collaborative, not competitive.</strong> No weed-out cultures. Schools where the norm is mutual support, shared notes, and study groups — not ranking and curve-based grading.</div></div>
+    <div class="filter-item"><span class="filter-icon">✓</span><div class="filter-text"><strong>Structured, proactive advising.</strong> Advisors who reach out, track progress, and initiate check-ins. Not a "figure it out yourself" model. Schools with sink-or-swim cultures were excluded.</div></div>
+    <div class="filter-item"><span class="filter-icon">✓</span><div class="filter-text"><strong>Grand, beautiful campus — small enrollment.</strong> Expansive architecture, quads, a sense of place. But not a large student body. Small upper-division classes where professors know your name.</div></div>
+    <div class="filter-item"><span class="filter-icon">✓</span><div class="filter-text"><strong>Genuine mental health support.</strong> Not just a link on a website. Schools with well-resourced counseling centers, embedded residential support staff, and a culture that normalises help-seeking.</div></div>
+    <div class="filter-item"><span class="filter-icon">✓</span><div class="filter-text"><strong>Housing guaranteed.</strong> Schools with housing lotteries, tripling, or forced off-campus transitions in sophomore year were flagged as watch-outs.</div></div>
+    <div class="filter-item"><span class="filter-icon">✓</span><div class="filter-text"><strong>Physics or Engineering Physics program.</strong> Schools were assessed on whether their physics program connects to industry-oriented MS placement in semiconductors, aerospace, optics, and medical physics — not just PhD pipeline production.</div></div>
+    <div class="filter-item"><span class="filter-icon">✓</span><div class="filter-text"><strong>Merit aid availability considered.</strong> Family is willing to pay but wants to preserve graduate school budget. Merit aid potential was used as a tiebreaker, not a filter.</div></div>
+  </div>
+
+  <h2>What Was Excluded and Why</h2>
+  <div class="filter-list">
+    <div class="filter-item"><span class="filter-icon" style="color:#c0392b">✗</span><div class="filter-text"><strong>Hot climates.</strong> Texas was ruled out by the student. Schools in Houston, Austin, and other high-heat locations were excluded or flagged with an explicit trade-off note (Rice is on the list but the heat dealbreaker is named directly).</div></div>
+    <div class="filter-item"><span class="filter-icon" style="color:#c0392b">✗</span><div class="filter-text"><strong>Weed-out academic cultures.</strong> Schools where introductory STEM courses are designed to eliminate students, or where the academic culture is ranking-driven, were not considered.</div></div>
+    <div class="filter-item"><span class="filter-icon" style="color:#c0392b">✗</span><div class="filter-text"><strong>Self-directed, unstructured environments.</strong> Schools where advising is passive and students are expected to navigate independently were excluded. This is not a judgment on those schools — it's a fit decision based on this student's profile.</div></div>
+    <div class="filter-item"><span class="filter-icon" style="color:#c0392b">✗</span><div class="filter-text"><strong>Engineering-only applications.</strong> The EC profile does not include robotics, maker projects, or engineering-coded activities. Schools where the strongest path required applying directly to an engineering school were avoided in favour of applying as Physics (authentic narrative, better odds) with an engineering pivot option after enrollment.</div></div>
+  </div>
+
+  <div class="co navy">
+    <h3>Why This Matters</h3>
+    <p>Every college list reflects choices — what to prioritise, what to trade off, what to exclude. Most lists don't make those choices visible. This one does. If any of these parameters don't match your student, the AI College Planner builds a different list from different inputs. The tool adapts to the student. The student doesn't adapt to the tool.</p>
+  </div>
+</div>
+
+<!-- ═══ CAREER PATHS ═══ -->
+<div class="sec" id="sec-careers">
+  <div class="sh">
+    <div class="sl">Section One</div>
+    <div class="st">Career Pathway Analysis</div>
+    <div class="si">Nine career paths mapped to Ethan's strengths, personality, and values — with honest assessments of what each path demands and delivers.</div>
+  </div>
+
+  <div class="co navy"><h3>Academic Anchor</h3><p>Based on Ethan's profile, his academic anchor is a <strong>Physics B.S.</strong> His strongest subjects are mathematics and physics, his intellectual identity is built around theory and understanding why things work at a deep level, and his working style demands structure and precision.</p></div>
+
+  <div class="co"><h3>The Pattern You Should Notice</h3><p>The careers that fit Ethan best all reward deep theoretical understanding applied to hard, well-defined problems in structured environments. The further a career drifts toward open-ended design, client management, or ambiguous problem-solving, the weaker the fit becomes.</p></div>
+
+  <h2>Best-Fit Career Paths</h2>
+  <p>Tap any path to explore it. Two paths are shown in full detail in this sample.</p>
+
+  <input type="checkbox" class="ct" id="c1">
+  <div class="card"><label class="cl" for="c1"><div class="cleft"><div class="cnum">Path 1</div><div class="ctitle">Semiconductor / Solid-State Physicist-Engineer</div><div class="ctag">You design and optimize the physics inside the chips that power everything.</div></div><div class="ci">+</div></label><div class="cb"><div class="cbi">
+    <h3>Why This Fits You</h3>
+    <p>Your preference for structured, well-defined problems with clear metrics of success is the key. Semiconductor work is deeply theoretical — quantum mechanics, solid-state physics, materials science — but produces tangible, measurable outcomes. Your introversion is an asset: the work rewards deep focus, not networking.</p>
+    <div class="tue"><span class="tue-l">TUESDAY AFTERNOON</span>
+      <p>You are a process integration engineer at Intel's campus in Hillsboro, Oregon — a sprawling, clean-room-heavy facility surrounded by Douglas firs. It is 2:15 PM and you are staring at a cross-sectional TEM image of a transistor gate stack. The 3-nanometer node you have been working on for fourteen months is showing anomalous leakage current, and today's job is figuring out why.</p>
+      <p>Your screen has a TCAD simulation open. You have been adjusting the doping profile in the source-drain junction, running the simulation, comparing the predicted leakage to the measured values from the fab, and iterating. The math is real: Poisson's equation and the drift-diffusion equations simultaneously, tweaking boundary conditions based on what the TEM image is telling you about the actual layer thicknesses.</p>
+      <p>The materials scientist, Priya, is arguing that the high-k dielectric layer is 0.3 nanometers thinner than spec. You pull up the ellipsometry data. She is right — the numbers support her theory. You draft a revised simulation with the corrected dielectric thickness and queue it to run overnight.</p>
+      <p>By 4:00 PM you have moved on to reviewing a junior engineer's write-up. The writing is clear but the statistical analysis has a gap — she is reporting means without confidence intervals. You walk to her desk to explain why the error bars matter. This is the part of the job you did not expect to enjoy — the mentoring.</p>
+      <p>You leave at 5:30. The problem is well-defined, the tools are precise, and the answer is findable. That is what you like about this work.</p>
+    </div>
+    <div class="sr">
+      <div class="sc"><div class="scl">Entry (MS)</div><div class="scv">$95–140K</div></div>
+      <div class="sc"><div class="scl">Mid-Career</div><div class="scv">$140–190K</div></div>
+      <div class="sc"><div class="scl">Senior</div><div class="scv">$180–280K+</div></div>
+      <div class="sc"><div class="scl">AI Resilience</div><div class="scv">High</div></div>
+    </div>
+    <h3>Honest Downsides</h3>
+    <p>The semiconductor industry runs on timelines. Product cycles are multi-year and high-stakes, and when a node is not yielding, the pressure ratchets up. Fabs are often in locations you didn't list as preferences — Hillsboro, Oregon fits, but many positions are in Phoenix, Austin, or overseas.</p>
+    <h3>The Path From Here</h3>
+    <p><strong>Senior year:</strong> AP Physics C, Calculus BC, AP Chemistry. <strong>College years 1–2:</strong> Physics major core sequence. <strong>Years 3–4:</strong> Upper-division solid-state physics, quantum mechanics II, and undergraduate research — the single most important thing you can do. <strong>Graduate school (2–3 years MS):</strong> Physics, EE, or materials science. Most PhD programs fully funded with $30K–$38K stipend. <strong>First real role:</strong> Process engineer or device physicist, typically 2–3 years after bachelor's.</p>
+  </div></div></div>
+
+  <input type="checkbox" class="ct" id="c2">
+  <div class="card"><label class="cl" for="c2"><div class="cleft"><div class="cnum">Path 2</div><div class="ctitle">Aerospace Physicist / Systems Physicist</div><div class="ctag">You solve the physics problems that keep spacecraft and satellites working.</div></div><div class="ci">+</div></label><div class="cb"><div class="cbi">
+    <h3>Why This Fits You</h3>
+    <p>Aerospace is one of the few industries where deep physics knowledge — orbital mechanics, thermodynamics, radiation effects, electromagnetic theory — is the core job requirement. The problems are hard, well-defined, and consequential. You would be working with small teams of very smart people on problems that have definitive answers.</p>
+    <div class="tue"><span class="tue-l">TUESDAY AFTERNOON</span>
+      <p>You are a thermal systems physicist at the Jet Propulsion Laboratory in Pasadena, California. JPL is nestled against the San Gabriel Mountains. It is 2:00 PM and you are working on a thermal model for an instrument package on a Europa mission follow-on.</p>
+      <p>The infrared spectrometer needs to operate at 80 Kelvin, but the spacecraft bus generates waste heat that could warm the detector during certain orbital geometries around Jupiter. You have a finite-element thermal model open in Thermal Desktop, running transient thermal analyses for different orbital scenarios.</p>
+      <p>At 3:00 PM you meet with the instrument PI — a Caltech professor. She wants to know if the thermal design can keep the detector below 80K for the full flyby sequence. Your simulation: it works for 23 of 25 flybys, but two push the detector to 84K. You suggest a deployable sunshade and estimate a revised model by Friday. She agrees. The problem is bounded, the physics is clear, and the path to the answer is structured.</p>
+    </div>
+    <div class="sr">
+      <div class="sc"><div class="scl">Entry (MS)</div><div class="scv">$80–130K</div></div>
+      <div class="sc"><div class="scl">Mid-Career</div><div class="scv">$120–165K</div></div>
+      <div class="sc"><div class="scl">Senior</div><div class="scv">$160–220K+</div></div>
+      <div class="sc"><div class="scl">AI Resilience</div><div class="scv">High</div></div>
+    </div>
+    <h3>Honest Downsides</h3>
+    <p>Aerospace timelines are long. You might spend three years on a thermal model for a mission that gets canceled due to budget cuts. Aerospace pay also lags behind semiconductor and tech industry compensation.</p>
+  </div></div></div>
+
+  <input type="checkbox" class="ct" id="c3"><div class="card"><label class="cl" for="c3"><div class="cleft"><div class="cnum">Path 3</div><div class="ctitle">Quantum Computing Physicist</div><div class="ctag">You work where physics meets computation — building hardware that makes quantum machines real.</div></div><div class="ci">+</div></label><div class="cb"><div class="cbi"><p><em>Full career analysis — including Tuesday afternoon scene, salary data, training path, and AI resilience — available in the complete portfolio.</em></p></div></div></div>
+
+  <input type="checkbox" class="ct" id="c4"><div class="card"><label class="cl" for="c4"><div class="cleft"><div class="cnum">Path 4</div><div class="ctitle">Medical Physicist</div><div class="ctag">You ensure radiation therapy delivers exactly the right dose to exactly the right place.</div></div><div class="ci">+</div></label><div class="cb"><div class="cbi"><p><em>Full career analysis available in the complete portfolio.</em></p></div></div></div>
+
+  <input type="checkbox" class="ct" id="c5"><div class="card"><label class="cl" for="c5"><div class="cleft"><div class="cnum">Path 5</div><div class="ctitle">Optical / Photonics Engineer</div><div class="ctag">You design the lasers, sensors, and imaging systems that underpin telecommunications and defense.</div></div><div class="ci">+</div></label><div class="cb"><div class="cbi"><p><em>Full career analysis available in the complete portfolio.</em></p></div></div></div>
+
+  <input type="checkbox" class="ct" id="c6"><div class="card"><label class="cl" for="c6"><div class="cleft"><div class="cnum">Path 6</div><div class="ctitle">National Laboratory Research Scientist</div><div class="ctag">You pursue fundamental physics with world-class equipment and federal funding.</div></div><div class="ci">+</div></label><div class="cb"><div class="cbi"><p><em>Full career analysis available in the complete portfolio.</em></p></div></div></div>
+
+  <input type="checkbox" class="ct" id="c7"><div class="card"><label class="cl" for="c7"><div class="cleft"><div class="cnum">Path 7</div><div class="ctitle">Mechanical Engineer (Thermal/Fluids)</div><div class="ctag">You apply physics principles to design and optimize mechanical systems.</div></div><div class="ci">+</div></label><div class="cb"><div class="cbi"><p><em>Full career analysis available in the complete portfolio.</em></p></div></div></div>
+
+  <input type="checkbox" class="ct" id="c8"><div class="card"><label class="cl" for="c8"><div class="cleft"><div class="cnum">Path 8</div><div class="ctitle">Chemical Process Engineer</div><div class="ctag">You optimize the physics and chemistry of industrial-scale processes.</div></div><div class="ci">+</div></label><div class="cb"><div class="cbi"><p><em>Full career analysis available in the complete portfolio.</em></p></div></div></div>
+
+  <input type="checkbox" class="ct" id="c9"><div class="card"><label class="cl" for="c9"><div class="cleft"><div class="cnum">Path 9</div><div class="ctitle">Patent Agent / Patent Attorney</div><div class="ctag">You protect inventions at the intersection of physics and law.</div></div><div class="ci">+</div></label><div class="cb"><div class="cbi"><p><em>Full career analysis available in the complete portfolio.</em></p></div></div></div>
+
+  <div class="rec"><h2>The Recommendation</h2>
+    <p>The two paths that best fit who Ethan is are <strong>Semiconductor / Solid-State Physicist-Engineer</strong> and <strong>Medical Physicist</strong>. Semiconductor engineering is the strongest overall match. Medical physics is the strongest match on the structural side — no career on this list has clearer protocols, more defined expectations, or more unambiguous standards of correctness.</p>
+  </div>
+</div>
+
+<!-- ═══ MAJOR DECISION ═══ -->
+<div class="sec" id="sec-majors">
+  <div class="sh">
+    <div class="sl">Section Two</div>
+    <div class="st">Major Decision Analysis</div>
+    <div class="si">Physics BS vs. Mechanical Engineering BS — which path gives Ethan the broadest access to the careers that fit him.</div>
+  </div>
+
+  <h2>The Question</h2>
+  <p>Ethan is drawn to physics and math, his intellectual identity is built around theory, and he has also expressed interest in engineering. The question is whether a physics-rooted degree or a mechanical engineering degree gets him to more of the careers that actually fit — and at what cost.</p>
+
+  <h2>Career Access Comparison</h2>
+  <table class="cmpt">
+    <thead><tr><th>Career</th><th>Physics / Eng. Physics</th><th>Mechanical Eng.</th></tr></thead>
+    <tbody>
+      <tr><td>Semiconductor Physicist-Engineer</td><td class="dir">Direct</td><td class="rch">Reach (harder)</td></tr>
+      <tr><td>Aerospace Physicist</td><td class="dir">Direct</td><td class="rch">Reach (significant)</td></tr>
+      <tr><td>Quantum Computing</td><td class="dir">Direct</td><td class="clo">Closed</td></tr>
+      <tr><td>Medical Physicist</td><td class="dir">Direct</td><td class="clo">Closed</td></tr>
+      <tr><td>Optical / Photonics</td><td class="rch">Reach (MS)</td><td class="rch">Reach (uncommon)</td></tr>
+      <tr><td>National Lab Researcher</td><td class="dir">Direct</td><td class="clo">Closed</td></tr>
+      <tr><td>Mech. Eng. (Thermal)</td><td class="rch">Reach (MS)</td><td class="dir">Direct</td></tr>
+      <tr><td>Chemical Process Eng.</td><td class="rch">Reach (pivot)</td><td class="clo">Closed</td></tr>
+      <tr><td>Patent Agent / Attorney</td><td class="dir">Direct</td><td class="dir">Direct (weaker)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="rec">
+    <h2>The Recommendation</h2>
+    <p>The physics-rooted path is the clear choice. A physics degree serves six of nine careers directly and reaches the other three. Mechanical engineering serves one directly and closes off four — including two of the three careers identified as Ethan's strongest fits.</p>
+    <p>The choice between Physics BS and Engineering Physics BS is tactical, not strategic — it depends on what specific schools offer. Both get to the same careers.</p>
+  </div>
+
+  <h2>What Each Path Actually Feels Like</h2>
+  <div class="co"><h3>A Typical Week in Physics</h3><p>Monday: quantum mechanics problem set — deriving the energy eigenstates of a hydrogen atom. Tuesday: electromagnetism lecture where the wave equation derivation clicks. Wednesday: three hours of computational physics in Python. Thursday: office hours with a professor who knows your name. Friday: contour integration in mathematical methods — the elegance excites you. The work is hard, but it is your kind of hard: abstract, precise, and driven by understanding.</p></div>
+  <div class="co gold"><h3>A Typical Week in Mechanical Engineering</h3><p>Monday: thermodynamics — familiar physics, enjoyable. Tuesday: machine shop, CNC mill — competent but not energized. Wednesday: fluid mechanics (satisfying) then a team meeting about prototype materials. Friday: your team's mechanism test fails. Debugging a physical system feels less clean than a mathematical one. Some coursework is exactly what you love. The rest is the price of the degree.</p></div>
+</div>
+
+<!-- ═══ COLLEGE LIST ═══ -->
+<div class="sec" id="sec-colleges">
+  <div class="sh">
+    <div class="sl">Section Three</div>
+    <div class="st">College List</div>
+    <div class="si">13 schools grouped by fit tier. Tap any school to see its detailed profile — objective data from public sources, assembled in one place.</div>
+  </div>
+
+  <div class="sn"><strong>Sample note:</strong> In the complete portfolio, every school expands to show a full data card. This sample shows the detail for Northwestern to demonstrate the format.</div>
+
+  <style>
+  .clrow{display:grid;grid-template-columns:2.2fr 1.2fr .8fr 3fr 1.5rem;gap:0;padding:.65rem .8rem;border-bottom:1px solid var(--lb);font-size:.88rem;cursor:pointer;-webkit-tap-highlight-color:rgba(55,117,116,.15);align-items:start}
+  .clrow:active{background:rgba(55,117,116,.05)}
+  .clhdr{display:grid;grid-template-columns:2.2fr 1.2fr .8fr 3fr 1.5rem;gap:0;padding:.7rem .8rem;background:var(--navy);border-radius:6px 6px 0 0;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--white)}
+  .clplus{color:var(--teal);font-weight:600;font-size:.9rem;text-align:center;transition:transform .3s}
+  input.clx:checked+.clcard .clplus{transform:rotate(45deg)}
+  .clcard{background:var(--white);border-radius:0 0 6px 6px;border:1px solid var(--lb);border-top:none;margin-bottom:0;overflow:hidden}
+  .clexp{max-height:0;overflow:hidden;transition:max-height .5s ease}
+  input.clx:checked+.clcard .clexp{max-height:3000px}
+  input.clx:checked+.clcard .clrow{background:rgba(55,117,116,.04)}
+  .clsn{font-weight:600;color:var(--navy)}
+  @media(max-width:600px){.clrow,.clhdr{grid-template-columns:1.5fr 1fr .7fr 2fr;font-size:.78rem;padding:.5rem}.clhdr{font-size:.65rem}}
+  </style>
+
+  <div class="tl t1">Tier 1 — Best Fit</div>
+  <div class="clhdr"><span>School</span><span>Location</span><span>Odds</span><span>Best Fit Reason</span><span></span></div>
+
+  <input type="checkbox" class="clx" id="cl1">
+  <div class="clcard"><label class="clrow" for="cl1"><span class="clsn"><span class="star">★</span> Northwestern</span><span>Evanston, IL</span><span>Reach</span><span>Grand lakefront campus, condensed matter strength, structured Weinberg advising.</span><span class="clplus">+</span></label><div class="clexp"><div class="dc" style="margin:.8rem;border-radius:6px">
+    <div class="dx"><div class="dl">Location</div><div class="dv">Evanston, IL · Suburban</div></div>
+    <div class="dx"><div class="dl">Setting</div><div class="dv">Lakefront · Gothic &amp; Georgian architecture</div></div>
+    <div class="dx"><div class="dl">US News Rank</div><div class="dv">#7 (T)</div></div>
+    <div class="dx"><div class="dl">QS Global Rank</div><div class="dv">#55</div></div>
+    <div class="dx"><div class="dl">Enrollment</div><div class="dv">~8,500 undergrad</div></div>
+    <div class="dx"><div class="dl">Student-Faculty Ratio</div><div class="dv">6:1</div></div>
+    <div class="dx"><div class="dl">Calendar</div><div class="dv">Quarter (10-week terms)</div></div>
+    <div class="dx"><div class="dl">Avg. Class Size</div><div class="dv">Upper-div physics: 10–20</div></div>
+    <div class="dx"><div class="dl">Acceptance Rate</div><div class="dv">~7% overall</div></div>
+    <div class="dx"><div class="dl">Housing Guarantee</div><div class="dv">First-year only · Not all 4 years</div></div>
+    <div class="dx"><div class="dl">Cost of Attendance</div><div class="dv">~$89,000/year</div></div>
+    <div class="dx"><div class="dl">Merit Aid</div><div class="dv">Low availability</div></div>
+  </div></div></div>
+
+  <input type="checkbox" class="clx" id="cl2">
+  <div class="clcard"><label class="clrow" for="cl2"><span class="clsn">Stanford</span><span>Palo Alto, CA</span><span>Reach</span><span>Benchmark campus, world-class Engineering Physics, Silicon Valley pipeline.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <input type="checkbox" class="clx" id="cl3">
+  <div class="clcard"><label class="clrow" for="cl3"><span class="clsn">Rice University</span><span>Houston, TX</span><span>Target</span><span>Residential college system — exactly the community structure needed.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <input type="checkbox" class="clx" id="cl4">
+  <div class="clcard"><label class="clrow" for="cl4"><span class="clsn"><span class="star">★</span> WashU</span><span>St. Louis, MO</span><span>Target</span><span>Beautiful campus, famously collaborative culture, proactive advising.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <input type="checkbox" class="clx" id="cl5">
+  <div class="clcard" style="border-radius:0 0 6px 6px"><label class="clrow" for="cl5"><span class="clsn">Vanderbilt</span><span>Nashville, TN</span><span>Target</span><span>Arboretum campus; Ingram Commons first-year program.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <div class="tl t2">Tier 2 — Strong Fit</div>
+  <div class="clhdr"><span>School</span><span>Location</span><span>Odds</span><span>Best Fit Reason</span><span></span></div>
+
+  <input type="checkbox" class="clx" id="cl6">
+  <div class="clcard"><label class="clrow" for="cl6"><span class="clsn">Case Western Reserve</span><span>Cleveland, OH</span><span>Target</span><span>ABET Engineering Physics, co-op, NASA Glenn pipeline.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <input type="checkbox" class="clx" id="cl7">
+  <div class="clcard"><label class="clrow" for="cl7"><span class="clsn">Univ. of Rochester</span><span>Rochester, NY</span><span>Target</span><span>World-class optics via Institute of Optics; Laser Energetics lab.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <input type="checkbox" class="clx" id="cl8">
+  <div class="clcard"><label class="clrow" for="cl8"><span class="clsn">Santa Clara</span><span>Santa Clara, CA</span><span>Target</span><span>Jesuit ethos, new Sobrato building, Silicon Valley location.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <input type="checkbox" class="clx" id="cl9">
+  <div class="clcard"><label class="clrow" for="cl9"><span class="clsn"><span class="star">★</span> Purdue (Honors)</span><span>W. Lafayette, IN</span><span>Target</span><span>Honors College creates intimate feel; strongest co-op placement.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <input type="checkbox" class="clx" id="cl10">
+  <div class="clcard"><label class="clrow" for="cl10"><span class="clsn"><span class="star">★</span> Univ. of Melbourne</span><span>Melbourne, AU</span><span>Target</span><span>Grand heritage campus, flexible 3+2 Melbourne Model, multicultural.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <div class="tl t3">Tier 3 — Solid Fit</div>
+  <div class="clhdr"><span>School</span><span>Location</span><span>Odds</span><span>Best Fit Reason</span><span></span></div>
+
+  <input type="checkbox" class="clx" id="cl11">
+  <div class="clcard"><label class="clrow" for="cl11"><span class="clsn">Univ. of Denver</span><span>Denver, CO</span><span>Likely</span><span>Mountain West location; 5-year BS/MS pathway.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <input type="checkbox" class="clx" id="cl12">
+  <div class="clcard"><label class="clrow" for="cl12"><span class="clsn">Loyola Marymount</span><span>Los Angeles, CA</span><span>Likely</span><span>Stunning hilltop campus, Jesuit mission, new Applied Physics program.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+
+  <input type="checkbox" class="clx" id="cl13">
+  <div class="clcard"><label class="clrow" for="cl13"><span class="clsn">Loyola Chicago</span><span>Chicago, IL</span><span>Likely</span><span>Lakefront campus, Fermilab and Argonne proximity.</span><span class="clplus">+</span></label><div class="clexp"><p style="padding:.8rem 1rem;font-size:.85rem;color:var(--mid-gray);font-style:italic;margin:0">Full data card available in the complete portfolio.</p></div></div>
+</div>
+
+<!-- ═══ SCHOOL REVIEWS ═══ -->
+<div class="sec" id="sec-reviews">
+  <div class="sh">
+    <div class="sl">Section Four</div>
+    <div class="st">School Reviews</div>
+    <div class="si">Personalised strategic analysis for each school. Tap a school to see the strategic data and detailed review sections — all written directly to the student.</div>
+  </div>
+
+  <div class="sn"><strong>Sample note:</strong> The complete portfolio includes the strategic data card and all 8 review sections for every school. This sample shows the full review for Northwestern, a partial preview for Rice, and a data card preview for Stanford.</div>
+
+  <!-- ═══ NORTHWESTERN — FULL ═══ -->
+  <input type="checkbox" class="st2" id="nw">
+  <div class="sc2">
+    <label class="shl" for="nw"><div><div class="stb t1">TIER 1 — BEST FIT</div><div class="snb">Northwestern University</div><div class="sms">Reach · ★ Must-Consider · Full 8-Section Review</div></div><div class="ci">+</div></label>
+    <div class="sb2">
+      <div class="dc">
+        <div class="dx"><div class="dl">Apply As</div><div class="dv">Physics BS (Weinberg) · Not McCormick Eng</div></div>
+        <div class="dx"><div class="dl">Ethan's Odds</div><div class="dv">~20-24% ED · ~4-5% RD</div></div>
+        <div class="dx"><div class="dl">App Strategy</div><div class="dv">RD Jan 2 (save ED for top choice)</div></div>
+        <div class="dx"><div class="dl">Cost &amp; Aid</div><div class="dv">$89K/yr · Low merit availability</div></div>
+        <div class="dx"><div class="dl">Career Optionality</div><div class="dv"><span class="stars">★★★★★</span> Weinberg + McCormick access. Quant finance. Chicago.</div></div>
+        <div class="dx"><div class="dl">Watch-Outs</div><div class="dv"><span class="warn">⚠</span> RD ~4-5% = lottery odds. EC gap: none if Weinberg Physics.</div></div>
+        <div class="dx full"><div class="dl">Strategic Rationale</div><div class="dv">Weinberg Physics = authentic narrative. McCormick accessible via cross-enrollment. Condensed matter strength maps to semiconductor career paths. Argonne + Fermilab proximity.</div></div>
+        <div class="dx"><div class="dl">Support &amp; Structure</div><div class="dv">Strong ✓ — Proactive Weinberg advising. Quarter system = clear goals.</div></div>
+        <div class="dx"><div class="dl">Diversity</div><div class="dv">Strong ✓✓ — Chicago proximity. ISP = global cohort.</div></div>
+      </div>
+
+      <input type="checkbox" class="it" id="nw1"><div class="is"><label class="il" for="nw1"><span class="inum">1</span><span class="iname">Opening Context</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>Northwestern is a must-consider school, marked with a star for good reason. The fit across your key dimensions — grand campus, collaborative culture, strong condensed matter physics, and structured Weinberg College advising — is tight. The lakefront campus on Lake Michigan delivers the architectural grandeur and sense of place your profile demands, and the physics department is small enough that faculty will know your name.</p>
+      </div></div></div>
+
+      <input type="checkbox" class="it" id="nw2"><div class="is"><label class="il" for="nw2"><span class="inum">2</span><span class="iname">The Academic Experience</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>Northwestern runs on quarters — three ten-week terms plus an optional summer. Quarters reward students who can ramp up quickly and stay engaged through short, intense bursts. Your strength with structured, clearly defined expectations serves you well here.</p>
+        <p>Physics lives in Weinberg College. The introductory sequence feeds into classical mechanics, E&M, quantum mechanics, statistical mechanics, and mathematical methods. Upper-division courses in condensed matter, astrophysics, and particle physics are taught by active researchers in small sections — typically ten to twenty students.</p>
+      </div></div></div>
+
+      <input type="checkbox" class="it" id="nw3"><div class="is"><label class="il" for="nw3"><span class="inum">3</span><span class="iname">Major &amp; Program Fit</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>Northwestern's physics department has particular strength in condensed matter physics — the academic foundation for your top-ranked semiconductor career path. Faculty include researchers working on quantum materials, superconductivity, and nanoscale device physics.</p>
+        <p>Northwestern does not offer a formal Engineering Physics degree. You would pursue a Physics BS with the option to take engineering electives. The proximity of McCormick School of Engineering allows cross-enrollment, and the physics-to-engineering-MS pipeline is well-traveled.</p>
+        <div class="co"><h3>Northwestern Advantage for Ethan</h3><p>Condensed matter physics maps directly to semiconductor and quantum computing careers. Proximity to Fermilab (30 min west) and Argonne (45 min south) creates direct pipelines to national lab positions. Weinberg advising assigns proactive advisors who initiate check-ins. Northwestern's prestige strengthens graduate school applications across all nine career paths.</p></div>
+      </div></div></div>
+
+      <input type="checkbox" class="it" id="nw4"><div class="is"><label class="il" for="nw4"><span class="inum">4</span><span class="iname">Career Pathway Integration</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>Northwestern serves your career list through three mechanisms. First, condensed matter faculty provide undergraduate research in semiconductors, quantum materials, and nanoscale devices. Second, Fermilab and Argonne proximity means summer research at national laboratories without relocating. Third, Northwestern Medicine and Feinberg School of Medicine create a medical physics pathway more developed than at most schools on your list.</p>
+      </div></div></div>
+
+      <input type="checkbox" class="it" id="nw5"><div class="is"><label class="il" for="nw5"><span class="inum">5</span><span class="iname">Campus Culture &amp; Personal Fit</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>The campus sits on Lake Michigan in Evanston. The lakefront setting, Gothic and Georgian architecture, and expansive quads deliver the grand campus feel your profile requires. Undergraduate enrollment of roughly 8,500 keeps the student body manageable.</p>
+        <p>The academic culture is ambitious but collaborative — genuine sharing of notes, study groups, and mutual support. The social culture is shaped by Greek life, which roughly a third of students participate in. You will find your footing through residential communities, physics department events, and low-key repeated-contact settings.</p>
+      </div></div></div>
+
+      <input type="checkbox" class="it" id="nw6"><div class="is"><label class="il" for="nw6"><span class="inum">6</span><span class="iname">Support, Structure &amp; Fit</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>Weinberg College assigns academic advisors who are proactive — they reach out, track your progress, and help build a four-year plan. This is the advising model your profile identifies as essential. CAPS is well-resourced. The residential college system creates a structured first-year entry point.</p>
+        <p>Housing is guaranteed for first-years but not for all four years. Most students move off-campus after sophomore year. Plan for this proactively.</p>
+      </div></div></div>
+
+      <input type="checkbox" class="it" id="nw7"><div class="is"><label class="il" for="nw7"><span class="inum">7</span><span class="iname">Honest Trade-Offs</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>Evanston is not the West Coast. Winters are genuinely harsh — lake-effect snow, wind chill, grey skies November through March. The quarter system can feel relentless with finals three times per year. Greek life shapes the social landscape. Weinberg distribution requirements will pull you into humanities courses. Admissions odds are still in reach territory.</p>
+      </div></div></div>
+
+      <input type="checkbox" class="it" id="nw8"><div class="is"><label class="il" for="nw8"><span class="inum">8</span><span class="iname">Overall Verdict</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>Northwestern earns Tier 1 and a must-consider star because condensed matter physics strength, proximity to two national laboratories, proactive Weinberg advising, and genuinely collaborative culture align tightly with your profile. The grand lakefront campus satisfies your aesthetic requirements. The trade-offs — Midwest winters, Greek-influenced social culture, quarter-system pace — are real but not disqualifying.</p>
+      </div></div></div>
+    </div>
+  </div>
+
+  <!-- ═══ RICE — PARTIAL ═══ -->
+  <input type="checkbox" class="st2" id="rice">
+  <div class="sc2">
+    <label class="shl" for="rice"><div><div class="stb t1">TIER 1 — BEST FIT</div><div class="snb">Rice University</div><div class="sms">Target · Preview (2 of 8 sections)</div></div><div class="ci">+</div></label>
+    <div class="sb2">
+      <div class="dc">
+        <div class="dx"><div class="dl">Apply As</div><div class="dv">Physics BS (Wiess School of Natural Sciences)</div></div>
+        <div class="dx"><div class="dl">Ethan's Odds</div><div class="dv">Target · ~25-30% ED</div></div>
+        <div class="dx"><div class="dl">Career Optionality</div><div class="dv"><span class="stars">★★★★★</span> Texas Medical Center. NASA JSC. Condensed matter.</div></div>
+        <div class="dx"><div class="dl">Watch-Outs</div><div class="dv"><span class="warn">⚠</span> Houston heat is a stated dealbreaker.</div></div>
+        <div class="dx full"><div class="dl">Support &amp; Structure</div><div class="dv">Exceptional ✓✓ — Residential college system. O-Week. 6:1 ratio. Housing guaranteed 4 years. Honor code culture.</div></div>
+      </div>
+
+      <input type="checkbox" class="it" id="r1"><div class="is"><label class="il" for="r1"><span class="inum">1</span><span class="iname">Opening Context</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>Rice delivers the most complete version of your ideal college experience — with one glaring exception. The residential college system creates exactly the small-community, collaborative culture you need. The physics department is ranked nationally. The campus is architecturally grand. On every dimension except geography, arguably the strongest fit on this list.</p>
+      </div></div></div>
+
+      <input type="checkbox" class="it" id="r7"><div class="is"><label class="il" for="r7"><span class="inum">7</span><span class="iname">Honest Trade-Offs</span><div class="ii">+</div></label><div class="ib"><div class="ibc">
+        <p>Houston, Texas. You said Texas is off the table because of the heat. Ninety-plus degrees with high humidity from May through October. If the heat is genuinely non-negotiable, Rice does not work — no matter how perfect everything else is. You need to decide whether the strength of fit justifies reconsidering a stated boundary.</p>
+      </div></div></div>
+
+      <div class="co gold" style="margin:1rem 1.4rem 1.4rem"><p><em>The complete portfolio includes all 8 sections for every school: Opening Context, Academic Experience, Major &amp; Program Fit, Career Pathway Integration, Campus Culture &amp; Personal Fit, Support Structure &amp; Fit, Honest Trade-Offs, and Overall Verdict — each written directly to the student.</em></p></div>
+    </div>
+  </div>
+
+  <!-- ═══ STANFORD — DATA CARD ONLY ═══ -->
+  <input type="checkbox" class="st2" id="stan">
+  <div class="sc2">
+    <label class="shl" for="stan"><div><div class="stb t1">TIER 1 — BEST FIT</div><div class="snb">Stanford University</div><div class="sms">Reach · Data card preview</div></div><div class="ci">+</div></label>
+    <div class="sb2">
+      <div class="dc">
+        <div class="dx"><div class="dl">Apply As</div><div class="dv">Physics BS (H&amp;S) · Not School of Eng</div></div>
+        <div class="dx"><div class="dl">Ethan's Odds</div><div class="dv">~3.5% overall · Deep reach</div></div>
+        <div class="dx"><div class="dl">Career Optionality</div><div class="dv"><span class="stars">★★★★★</span> SLAC. Silicon Valley. Every pathway.</div></div>
+        <div class="dx"><div class="dl">Cost &amp; Aid</div><div class="dv">$92K/yr · Need-based only</div></div>
+        <div class="dx full"><div class="dl">Strategic Rationale</div><div class="dv">Ethan loves it. Toured. SLAC on campus. Engineering Physics program with specialization tracks. Coterminal MS option. Silicon Valley location.</div></div>
+        <div class="dx"><div class="dl">Watch-Outs</div><div class="dv"><span class="warn">⚠</span> ~3.5% = lottery. Self-directed culture.</div></div>
+      </div>
+      <div class="co gold" style="margin:0 1.4rem 1.4rem"><p><em>Full 8-section review with strategic analysis available in the complete portfolio.</em></p></div>
+    </div>
+  </div>
+
+  <!-- ═══ REMAINING SCHOOLS — NAMES ONLY ═══ -->
+  <div class="card" style="padding:1.2rem 1.4rem">
+    <div class="stb t1" style="margin-bottom:.5rem">TIER 1</div>
+    <p style="color:var(--navy);font-weight:600;margin-bottom:.3rem">Also in the complete portfolio:</p>
+    <p style="color:var(--mid-gray);font-size:.9rem;margin-bottom:.3rem">Washington University in St. Louis ★ · Vanderbilt University</p>
+    <div class="stb t2" style="margin-bottom:.5rem;margin-top:1rem">TIER 2</div>
+    <p style="color:var(--mid-gray);font-size:.9rem;margin-bottom:.3rem">Case Western Reserve · University of Rochester · Santa Clara University · Purdue University (Honors) ★ · University of Melbourne ★</p>
+    <div class="stb t3" style="margin-bottom:.5rem;margin-top:1rem">TIER 3</div>
+    <p style="color:var(--mid-gray);font-size:.9rem;margin-bottom:0">University of Denver · Loyola Marymount University · Loyola University Chicago</p>
+  </div>
+
+  <div class="co gold" style="margin-top:1.5rem">
+    <h3>What the complete portfolio delivers</h3>
+    <p>Every school on the list receives the full treatment you see above for Northwestern: a strategic data card with personalised odds, career optionality ratings, and watch-outs, plus all eight review sections written directly to the student. The complete portfolio is produced by the AI College Planner — built from your brain dump, personalised to your student.</p>
+    <p style="margin-top:.8rem"><strong>collegeresiliency.com · @CollegeResiliency</strong></p>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="pf">
+  <p><strong>College Resiliency</strong> · The Parent Playbook</p>
+  <p>collegeresiliency.com · @CollegeResiliency</p>
+  <p style="margin-top:.8rem;font-size:.75rem;opacity:.6">This is a sample portfolio using anonymised student data. The AI College Planner produces a complete version personalised to your student — built from your brain dump.</p>
+</div>
+
+</div><!-- end .pw -->
+</body>
+</html>
