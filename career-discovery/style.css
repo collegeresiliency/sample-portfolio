@@ -262,7 +262,7 @@ input.ct:checked + .card .ci { transform: rotate(45deg); background: var(--teal)
   text-align: center;
 }
 .scl { font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: .3rem; }
-.scv { font-size: 1.3rem; font-weight: 700; color: var(--navy); }
+.scv { font-size: .95rem; font-weight: 700; color: var(--navy); }
 
 /* --- Param Grid (Profile Cards & Career Family Cards) --- */
 .param-grid {
